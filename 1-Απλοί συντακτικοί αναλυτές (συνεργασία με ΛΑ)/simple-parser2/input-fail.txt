@@ -1,0 +1,5 @@
+int a;
+intx b;
+
+a = -30;
+b = a;

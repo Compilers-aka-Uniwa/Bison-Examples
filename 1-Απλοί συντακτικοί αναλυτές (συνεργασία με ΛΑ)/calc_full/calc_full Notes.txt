@@ -1,0 +1,55 @@
+Πληροφορίες για εκτέλεση calc_full:
+______________________________________________
+
+Η σειρά εκτέλεσης των εντολών είναι:
+
+1:  bison -d calc_full.y 
+		         δημιουργεί τα calc_full.tab.c πηγαίο συντακτικού αναλυτή 
+			και calc.full.tab.h αρχείο heading για τον flex
+
+2:  flex calc_full.l δημιουργεί το lex.yy.c πηγαίο λεκτικούαναλυτή
+
+3: gcc -o calc_full lex.yy.c calc_full.tab.c -lfl -lm  δημιουργία συντακτικού αναλυτή
+
+4: ./calc.full                                            εκτέλεση συντακτικού αναλυτή
+
+
+
+Προσθήκη αριθμών γραμμών σε μηνύματα συντακτικών λαθών:
+__________________________________________________
+Αλλάξτε τον κώδικα της yyerror ως εξής:
+
+extern char* yytext;
+extern int yylineno;
+int yyerror(char *s) {
+  printf("%s on line %d - %s\n", s, yylineno, yytext);
+}
+
+και προσθέστε τη γραμμή:
+
+  %option yylineno
+
+στο calc_full.l 
+
+
+Εκτέλεση από αρχείο
+_________________________
+
+Εκτελέστε ως εξής:  ./calc.full < filename
+
+
+
+Δημιουργία δέσμης εντολών με τη Makefile
+______________________________________
+
+Δημιουργήστε αρχείο με όνομα Makefile που να περιέχει τις παρακάτω γραμμές:
+
+calc_full:  calc_full.y  calc_full.l
+	bison -d calc_full.y
+	flex calc_full.l
+	gcc -o calc_full lex.yy.c calc_full.tab.c -lfl -lm
+	
+
+και εκτελέστε στη συνέχεια το make.
+
+ΠΡΟΣΟΧΗ!!! Αντικαταστήστε όλα τα spaces στο Makefile  με tabs
