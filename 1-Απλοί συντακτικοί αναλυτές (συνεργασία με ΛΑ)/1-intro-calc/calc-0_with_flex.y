@@ -1,14 +1,14 @@
 /* 
-Onoma arxeiou:	calc-0_with_flex.y
-Perigrafh:	Bison arxeio gia syntaktiko elegxo postfix arithitikwn ekfrasewn 
-Syggrafeas:	Ergasthrio Metaglwttistwn
+Όνομα αρχείου:	calc-0_with_flex.y
+Περιγραφή:	Bison αρχείο για συντακτικό έλεγχο postfix αριθμητικών εκφράσεων 
+Συγγραφέας:	Εργαστήριο Μεταγλωττιστών
  
 */
 
 %{
 
 /* ______________________________________________________________
-Orismoi kai dhlwseis glwssas C. Otidhpote exei na kanei me orismo h arxikopoihsh  metablhtwn, arxeia header kai dhlwseis #define mpainei se auto to shmeio 
+Ορισμοί και δηλώσεις γλώσσας C. Οτιδήποτε έχει να κάνει με ορισμό ή αρχικοποίηση μεταβλητών, αρχεία header και δηλώσεις #define μπαίνει σε αυτό το σημείο 
 _______________________________________________________________*/
 
 #include <stdio.h>
@@ -20,13 +20,13 @@ extern char * yytext;
 %}
 
 /* ____________________________________________ 
-Orismos twn anagnwrisimwn lektikwn monadwn. 
+Ορισμός των αναγνωρίσιμων λεκτικών μονάδων. 
 ___________________________________________*/
 
 %token INTEGER NEWLINE TOKEN_ERROR
 
 /* _________________________________________
-Orismos tou symbolou enarkshs ths grammatikhs 
+Ορισμός του συμβόλου έναρξης της γραμματικής 
 _____________________________________________*/
 
 %start program
@@ -34,7 +34,7 @@ _____________________________________________*/
 %%
 
 /*____________________________________________
-   Orismos twn grammatikwn kanonwn. 
+   Ορισμός των γραμματικών κανόνων. 
 ______________________________________________*/
 					    
 program:
@@ -51,7 +51,7 @@ expr:
 
 /* __________________________________________________
 
- Epiprosthetos kwdikas-xrhsth se glwssa C pou tha symperilhfthei ston kwdika tou syntaktikoy analyth */
+ Επιπρόσθετος κώδικας-χρήστη σε γλώσσα C που θα συμπεριληφθεί στον κώδικα του συντακτικού αναλυτή */
 
 
 int main(int argc,char **argv)

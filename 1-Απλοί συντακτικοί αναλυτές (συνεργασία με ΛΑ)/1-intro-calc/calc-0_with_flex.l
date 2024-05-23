@@ -1,10 +1,10 @@
-/* Onoma arxeiou:	calc-0_with_flex.l
-   Perigrafh:	Eisodos ergaleiou Flex gia angnorisi akeraiwn kai 
-symboloy prosthesis & pol/smou
+/* Όνομα Αρχείου:	calc-0_with_flex.l
+   Περιγραφή:	Είσοδος εργαλείου Flex για αναγνώριση ακεραίων και 
+συμβόλου πρόσθεσης & πολλαπλασιασμού
 	
-   Syggrafeas:	Ergasthrio Metaglwttistwn, Tmhma Mhx.Plhroforikhs TE, TEI Athhnas
+   Συγγραφέας:	Εργαστήριο Μεταγλωττιστών, Τμήμα Μηχ.Πληροφορικής ΤΕ, ΤΕΙ Αθήνας
 
-   Sxolia:	O paron kodikas tha dimioyrgisei  (me th xrhsh Flex) mia routina lektikis analysis  pou anagnwrizei: to '+', delimiters (space kai tab), newline,	akeraious sthn aplh morfh [0-9]+ kai lanthasmenous akeraious pou teleiwnoun me kapoio gramma.
+   Σχόλια:	Ο παρών κώδικας θα δημιουργήσει (με τη χρήση Flex) μια ρουτίνα λεκτικής ανάλυσης που αναγνωρίζει: το '+', delimiters (space και tab), newline, ακέραιους στην απλή μορφή [0-9]+ και λανθασμένους ακέραιους που τελειώνουν με κάποιο γράμμα.
 */
 
 %option noyywrap
@@ -12,7 +12,7 @@ symboloy prosthesis & pol/smou
 
 /* ________________________________________________________
 
-Kwdikas C gia orismo twn apaitoumenwn header files kai twn metablhtwn. Otidhpote anamesa sta %{ kai %} metaferetai autousio sto arxeio C pou tha dhmiourghsei to Flex. 
+Κώδικας C για ορισμό των απαιτούμενων header files και των μεταβλητών. Οτιδήποτε ανάμεσα στα %{ και %} μεταφέρεται αυτούσιο στο αρχείο C που θα δημιουργήσει το Flex. 
 __________________________________________________________*/
 
 %{
@@ -21,14 +21,14 @@ __________________________________________________________*/
 #include <string.h>
 #include <stdlib.h>
 
-/* Header file pou periexei lista me ola ta tokens.
-   Prosoxh: Paragetai apo to ergaleio Bison */
+/* Header file που περιέχει λίστα με όλα τα tokens.
+   Προσοχή: Παράγεται από το εργαλείο Bison */
 
 #include "calc-0_with_flex.tab.h"
 
 /* _____________________________________________
 
-Orismos metrhth trexousas grammhs 
+Ορισμός μετρητή τρέχουσας γραμμής 
 _________________________________________________*/
 
 int line=1;
@@ -40,8 +40,8 @@ void prn(char *s);
 
 /* _______________________________________________________
 
-Onomata kai antistoixoi orismoi (ypo morfh kanonikhs ekfrashs).
-   Meta apo auto, mporei na ginei xrhsh twn onomatwn (aristera) anti twn, synhthws idiaiterws makrsokelwn kai dysnohtwn, kanonikwn ekfrasewn 
+Ονόματα και αντίστοιχοι ορισμοί (υπό μορφή κανονικής έκφρασης).
+   Μετά από αυτό, μπορεί να γίνει χρήση των ονομάτων (αριστερά) αντί των, συνήθως ιδιαίτερα μακροσκελών και δυσνόητων, κανονικών εκφράσεων 
 ____________________________________________________________*/
 
 DELIMITERS	[ \t]+
@@ -49,7 +49,7 @@ INTEGER		[0-9]+
 
 /*___________________________________________________________
  
-Gia kathe pattern (aristera) pou tairiazei ekteleitai o antistoixos kwdikas mesa sta agkistra. 
+Για κάθε pattern (αριστερά) που ταιριάζει εκτελείται ο αντίστοιχος κώδικας μέσα στα αγκύλες. 
 _____________________________________________________________*/
 
 %%
@@ -66,7 +66,8 @@ _____________________________________________________________*/
 
 /* _______________________________________________________________
 
-H synarthsh typwnei sthn eksodo ena mhnyma lathous sthn periptwsh pou anagnwristei lanthasmeno token opws px. akeraios pou teleiwnei me gramma. ______________________________________________________________*/
+Η συνάρτηση τυπώνει στην έξοδο ένα μήνυμα λάθους στην περίπτωση που αναγνωριστεί λανθασμένο token όπως π.χ. ακέραιος που τελειώνει με γράμμα. 
+______________________________________________________________*/
 
 void yyerror (const char *msg)
 {
@@ -75,7 +76,7 @@ void yyerror (const char *msg)
 
 /* ____________________________________________________________
 
-H synarthsh typwnei sthn othonh to keimeno tou anagnwristikou pou tairiakse me kapoion kanona. Xrhsimopoieitai kathara gia logous katanohshs kai debugging. 
+Η συνάρτηση τυπώνει στην οθόνη το κείμενο του αναγνωριστικού που ταίριαξε με κάποιον κανόνα. Χρησιμοποιείται καθαρά για λόγους κατανόησης και debugging. 
 ______________________________________________________________*/
 
 void prn(char *s)
