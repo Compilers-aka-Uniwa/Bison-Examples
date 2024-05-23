@@ -1,4 +1,4 @@
-/*  αρχείο BISON  με όνομα calc-0.y (χωρίς flex) για απλές αριθμητικές πράξεις, άθροισμα και πολ/σμο με postfix notation (πχ. 5 4 +)  */
+/*  Ξ±ΟΟ‡ΞµΞ―ΞΏ BISON  ΞΌΞµ ΟΞ½ΞΏΞΌΞ± calc-0.y (Ο‡Ο‰ΟΞ―Ο‚ flex) Ξ³ΞΉΞ± Ξ±Ο€Ξ»Ξ­Ο‚ Ξ±ΟΞΉΞΈΞΌΞ·Ο„ΞΉΞΊΞ­Ο‚ Ο€ΟΞ¬ΞΎΞµΞΉΟ‚, Ξ¬ΞΈΟΞΏΞΉΟƒΞΌΞ± ΞΊΞ±ΞΉ Ο€ΞΏΞ»/ΟƒΞΌΞΏ ΞΌΞµ postfix notation (Ο€Ο‡. 5 4 +)  */
 
 %{
         #include <stdio.h>
@@ -41,6 +41,7 @@ yylex() {
         if (c == '+') return PLUS;
         if (c == '*') return MULT;
         if (c == '\n') { yylval = 0; return NEWLINE;}
+        if (c == EOF) { return 0; }
         yyerror("invalid character");
 }
 

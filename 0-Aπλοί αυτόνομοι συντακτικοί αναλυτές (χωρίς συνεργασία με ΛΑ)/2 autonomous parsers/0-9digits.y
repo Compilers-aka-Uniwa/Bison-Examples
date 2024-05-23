@@ -1,9 +1,10 @@
-/*  αρχείο BISON  με όνομα digit.y (χωρίς Flex) που απλά αναγνωρίζει ένα αριθμητικό ψηφίο και newline (digit.y). Για οτιδήποτε άλλο πετάει syntax error.  */
+/*  Ξ±ΟΟ‡ΞµΞ―ΞΏ BISON  ΞΌΞµ ΟΞ½ΞΏΞΌΞ± digit.y (Ο‡Ο‰ΟΞ―Ο‚ Flex) Ο€ΞΏΟ… Ξ±Ο€Ξ»Ξ¬ Ξ±Ξ½Ξ±Ξ³Ξ½Ο‰ΟΞ―Ξ¶ΞµΞΉ Ξ­Ξ½Ξ± Ξ±ΟΞΉΞΈΞΌΞ·Ο„ΞΉΞΊΟ ΟΞ·Ο†Ξ―ΞΏ ΞΊΞ±ΞΉ newline (digit.y). Ξ“ΞΉΞ± ΞΏΟ„ΞΉΞ΄Ξ®Ο€ΞΏΟ„Ξµ Ξ¬Ξ»Ξ»ΞΏ Ο€ΞµΟ„Ξ¬ΞµΞΉ syntax error.  */
 
 %{
         #include <stdio.h>
         int yylex(void);
         void yyerror(char *);
+        #define YYDEBUG 1
 %}
 
 %token DIGIT NEWLINE
@@ -30,6 +31,7 @@ yylex() {
                 return DIGIT;
         }
         if (c == '\n') return NEWLINE;
+        if (c == EOF) return 0;
         yyerror("invalid character");
 }
 
@@ -38,6 +40,7 @@ void yyerror(char *s) {
 }
 
 int main(void)  {
+        yydebug = 1;
         yyparse();
         return 0;
 }
