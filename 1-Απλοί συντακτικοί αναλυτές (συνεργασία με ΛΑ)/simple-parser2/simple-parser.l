@@ -1,24 +1,24 @@
-/* Onoma arxeiou:	simple-parser.l
-   Perigrafh:		Aplos lektikos analyths - meros tou antistoixou syntaktikou analyth
-			(kwdikas gia to ergaleio Flex)
-   Syggrafeas:		Ergasthrio Metaglwttistwn, Tmhma Mhx.Plhroforikhs TE, TEI Athhnas
-   Sxolia:		To paron programma ylopoiei (me th xrhsh Flex) enan aplo lektiko
-			analyth pou anagnwrizei:
-				1) Tabs kai kena
-				2) Anagnwristika (identifiers - onomata metablhtwn)
-				3) Akeraious arithmous
-				4) Th leksh "int"
-				5) Ton xarakthra ';'
-				6) Ton xarakthra '='
-				7) Ton eidiko xarakthra '\n' - newline
-			Se opoiadhpote allh periptwsh ektypwnei to mhnyma "Token error"
+/* Όνομα αρχείου:	simple-parser.l
+   Περιγραφή:		Απλός λεκτικός αναλυτής - μέρος του αντίστοιχου συντακτικού αναλυτή
+			(κώδικας για το εργαλείο Flex)
+   Συγγραφέας:		Εργαστήριο Μεταγλωττιστών, Τμήμα Μηχ.Πληροφορικής ΤΕ, ΤΕΙ Αθήνας
+   Σχόλια:		Το παρόν πρόγραμμα υλοποιεί (με τη χρήση Flex) έναν απλό λεκτικό
+			αναλυτή που αναγνωρίζει:
+				1) Tabs και κενά
+				2) Αναγνωριστικά (identifiers - ονόματα μεταβλητών)
+				3) Ακέραιους αριθμούς
+				4) Τη λέξη "int"
+				5) Τον χαρακτήρα ';'
+				6) Τον χαρακτήρα '='
+				7) Τον ειδικό χαρακτήρα '\n' - newline
+			Σε οποιαδήποτε άλλη περίπτωση εκτυπώνει το μήνυμα "Token error"
 */
 
 %option noyywrap
 
-/* Kwdikas C gia orismo twn apaitoumenwn header files kai twn metablhtwn.
-   Otidhpote anamesa sta %{ kai %} metaferetai autousio sto arxeio C pou
-   tha dhmiourghsei to Flex. */
+/* Κώδικας C για ορισμό των απαιτούμενων header files και των μεταβλητών.
+   Οτιδήποτε ανάμεσα στα %{ και %} μεταφέρεται αυτούσιο στο αρχείο C που
+   θα δημιουργήσει το Flex. */
 
 %{
 
@@ -26,7 +26,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-/* Header file pou periexei lista me ola ta tokens */
+/* Header file που περιέχει λίστα με όλα τα tokens */
 #include "simple-parser.tab.h"
 
 extern int flag;
@@ -36,9 +36,9 @@ void prn(char *s);
 
 %}
 
-/* Onomata kai antistoixoi orismoi (ypo morfh kanonikhs ekfrashs).
-   Meta apo auto, mporei na ginei xrhsh twn onomatwn (aristera) anti twn,
-   synhthws idiaiterws makrsokelwn kai dysnohtwn, kanonikwn ekfrasewn */
+/* Ονόματα και αντίστοιχοι ορισμοί (υπό μορφή κανονικής έκφρασης).
+   Μετά από αυτό, μπορεί να γίνει χρήση των ονομάτων (αριστερά) αντί των,
+   συνήθως ιδιαίτερα μακροσκελών και δυσνόητων, κανονικών εκφράσεων */
 
 DELIMITERS [ \t]+
 ID [A-Za-z][A-Za-z0-9]*(_[A-Za-z0-9]+)*
@@ -46,11 +46,11 @@ DIGIT_H [1-9]
 DIGIT_L [0-9]
 
 
-/* Gia kathe pattern (aristera) pou tairiazei ekteleitai o antistoixos
-   kwdikas mesa sta agkistra. H entolh return epitrepei thn epistrofh
-   mias sygkekrimenhs arithmhtiks timhs pou antiproswpeuei thn lektikh
-   monada pou diabasthke. H timh auth xrhsimopoieitai apo to ergaleio
-   Bison gia thn syntaktikh analysh ths eisodou */
+/* Για κάθε pattern (αριστερά) που ταιριάζει εκτελείται ο αντίστοιχος
+   κώδικας μέσα στα άγκιστρα. Η εντολή return επιτρέπει την επιστροφή
+   μιας συγκεκριμένης αριθμητικής τιμής που αντιπροσωπεύει τη λεκτική
+   μονάδα που διαβάστηκε. Η τιμή αυτή χρησιμοποιείται από το εργαλείο
+   Bison για τη συντακτική ανάλυση της εισόδου */
 
 %%
 
@@ -66,10 +66,10 @@ DIGIT_L [0-9]
 %%
 
 
-/* H synarthsh prn typwnei sthn othonh ton typo tou anagnwristikou (px. ASSIGNOP)
-   pou egine match kathws kai to idio to keimeno (px. =) tou anagnwristikou. O
-   logos yparkshs ths einai kathara gia kalyterh katanohsh tou kwdika kai gia
-   genikoterh dieykolynsh sto debugging ths efarmoghs */
+/* Η συνάρτηση prn τυπώνει στην οθόνη τον τύπο του αναγνωριστικού (πχ. ASSIGNOP)
+   που έγινε match καθώς και το ίδιο το κείμενο (πχ. =) του αναγνωριστικού. Ο
+   λόγος ύπαρξής της είναι καθαρά για καλύτερη κατανόηση του κώδικα και για
+   γενικότερη διευκόλυνση στο debugging της εφαρμογής */
 
 void prn(char *s)
 {

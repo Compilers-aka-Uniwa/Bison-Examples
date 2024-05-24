@@ -1,0 +1,152 @@
+Grammar
+
+    0 $accept: program $end
+
+    1 program: program expr NEWLINE
+    2        | ε
+
+    3 expr: INTEGER
+    4     | expr expr "+"
+    5     | expr expr "*"
+    6     | expr expr "<"
+    7     | expr expr ">="
+    8     | expr expr ">"
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    INTEGER (258) 3
+    NEWLINE (259) 1
+    "+" (260) 4
+    "*" (261) 5
+    "<" (262) 6
+    ">=" (263) 7
+    ">" (264) 8
+
+
+Nonterminals, with rules where they appear
+
+    $accept (10)
+        on left: 0
+    program (11)
+        on left: 1 2
+        on right: 0 1
+    expr (12)
+        on left: 3 4 5 6 7 8
+        on right: 1 4 5 6 7 8
+
+
+State 0
+
+    0 $accept: • program $end
+
+    $default  reduce using rule 2 (program)
+
+    program  go to state 1
+
+
+State 1
+
+    0 $accept: program • $end
+    1 program: program • expr NEWLINE
+
+    $end     shift, and go to state 2
+    INTEGER  shift, and go to state 3
+
+    expr  go to state 4
+
+
+State 2
+
+    0 $accept: program $end •
+
+    $default  accept
+
+
+State 3
+
+    3 expr: INTEGER •
+
+    $default  reduce using rule 3 (expr)
+
+
+State 4
+
+    1 program: program expr • NEWLINE
+    4 expr: expr • expr "+"
+    5     | expr • expr "*"
+    6     | expr • expr "<"
+    7     | expr • expr ">="
+    8     | expr • expr ">"
+
+    INTEGER  shift, and go to state 3
+    NEWLINE  shift, and go to state 5
+
+    expr  go to state 6
+
+
+State 5
+
+    1 program: program expr NEWLINE •
+
+    $default  reduce using rule 1 (program)
+
+
+State 6
+
+    4 expr: expr • expr "+"
+    4     | expr expr • "+"
+    5     | expr • expr "*"
+    5     | expr expr • "*"
+    6     | expr • expr "<"
+    6     | expr expr • "<"
+    7     | expr • expr ">="
+    7     | expr expr • ">="
+    8     | expr • expr ">"
+    8     | expr expr • ">"
+
+    INTEGER  shift, and go to state 3
+    "+"      shift, and go to state 7
+    "*"      shift, and go to state 8
+    "<"      shift, and go to state 9
+    ">="     shift, and go to state 10
+    ">"      shift, and go to state 11
+
+    expr  go to state 6
+
+
+State 7
+
+    4 expr: expr expr "+" •
+
+    $default  reduce using rule 4 (expr)
+
+
+State 8
+
+    5 expr: expr expr "*" •
+
+    $default  reduce using rule 5 (expr)
+
+
+State 9
+
+    6 expr: expr expr "<" •
+
+    $default  reduce using rule 6 (expr)
+
+
+State 10
+
+    7 expr: expr expr ">=" •
+
+    $default  reduce using rule 7 (expr)
+
+
+State 11
+
+    8 expr: expr expr ">" •
+
+    $default  reduce using rule 8 (expr)

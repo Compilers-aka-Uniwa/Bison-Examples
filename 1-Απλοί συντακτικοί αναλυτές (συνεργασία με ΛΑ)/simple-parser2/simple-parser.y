@@ -1,24 +1,24 @@
-/* Onoma arxeiou:	simple-parser.y
-   Perigrafh:		Aplos syntaktikos analyths (kwdikas gia to ergaleio Bison)
-   Syggrafeas:		Ergasthrio Metaglwttistwn, Tmhma Mhx.Plhroforikhs TE, TEI Athhnas
-   Sxolia:		O syntaktikos analyths anagnwrizei monaxa:
-				1) Dhlwsh metablhths typou integer =========> int a;
-				2) Anathesh timhs akeraiou se metablhth ====> a = 5;
-				3) Anathesh timhs metablthhs se metablhth ==> a = b;
-			Katanoei kai xrhsimopoiei stous grammatikous kanones tis akolouthes
-			lektikes monades pou parexontai/anagnwrizontai apo to ergaleio Flex:
-				1) SINT		H leksh "int" gia orismo metablhths integer
-				2) SEMI		O xarakthras ';' ws termatikos entolhs
-				3) ASSIGNOP	O xarakthras '=' gia tis anatheseis timwn
-				4) IDENTIFIER	Anagnwristiko / onoma metablhths
-				5) INTCONST	Akeraios arithmos
+/* Όνομα αρχείου:	simple-parser.y
+   Περιγραφή:		Απλός συντακτικός αναλυτής (κώδικας για το εργαλείο Bison)
+   Συγγραφέας:		Εργαστήριο Μεταγλωττιστών, Τμήμα Μηχ.Πληροφορικής ΤΕ, ΤΕΙ Αθήνας
+   Σχόλια:		Ο συντακτικός αναλυτής αναγνωρίζει μόνο:
+				1) Δήλωση μεταβλητής τύπου integer =========> int a;
+				2) Ανάθεση τιμής ακεραίου σε μεταβλητή ====> a = 5;
+				3) Ανάθεση τιμής μεταβλητής σε μεταβλητή ==> a = b;
+			Κατανοεί και χρησιμοποιεί στους γραμματικούς κανόνες τις ακόλουθες
+			λεκτικές μονάδες που παρέχονται/αναγνωρίζονται από το εργαλείο Flex:
+				1) SINT		Η λέξη "int" για ορισμό μεταβλητής integer
+				2) SEMI		Ο χαρακτήρας ';' ως τερματικός εντολής
+				3) ASSIGNOP	Ο χαρακτήρας '=' για τις αναθέσεις τιμών
+				4) IDENTIFIER	Αναγνωριστικό / όνομα μεταβλητής
+				5) INTCONST	Ακέραιος αριθμός
 */
 
 %{
 
 /* --------------------------------------------------------------------------------
-   Orismoi kai dhlwseis glwssas C. Otidhpote exei na kanei me orismo h arxikopoihsh
-   metablhtwn, arxeia header kai dhlwseis #define mpainei se auto to shmeio */
+   Ορισμοί και δηλώσεις γλώσσας C. Οτιδήποτε έχει να κάνει με ορισμό ή αρχικοποίηση
+   μεταβλητών, αρχεία header και δηλώσεις #define μπαίνει σε αυτό το σημείο */
 
 #include <stdio.h>
 #include <string.h>
@@ -30,27 +30,27 @@ extern char *yytext;
 %}
 
 /* -----------------------------
-   Dhlwseis kai orismoi Bison */
+   Δηλώσεις και ορισμοί Bison */
 
-/* Orismos twn anagnwrisimwn lektikwn monadwn. */
+/* Ορισμός των αναγνωρίσιμων λεκτικών μονάδων. */
 %token SINT SEMI ASSIGNOP IDENTIFIER INTCONST
 
-/* Orismos tou symbolou enarkshs ths grammatikhs */
+/* Ορισμός του συμβόλου έναρξης της γραμματικής */
 %start program
 
 %%
 
 /* --------------------------------------------------------------------------------
-   Orismos twn grammatikwn kanonwn. Kathe fora pou antistoixizetai enas grammatikos
-   kanonas me ta dedomena eisodou, ekteleitai o kwdikas C pou brisketai anamesa sta
-   agkistra. H anamenomenh syntaksh einai:
-				onoma : kanonas { kwdikas C } */
+   Ορισμός των γραμματικών κανόνων. Κάθε φορά που αντιστοιχίζεται ένας γραμματικός
+   κανόνας με τα δεδομένα εισόδου, εκτελείται ο κώδικας C που βρίσκεται ανάμεσα στα
+   άγκιστρα. Η αναμενόμενη σύνταξη είναι:
+				όνομα : κανόνας { κώδικας C } */
 					    
 program	: program decl
 	| program assign
         |  
 
-decl	: type aid SEMI { printf("\n\t### Line:%d Declaration\n", line); }
+decl	: type aid SEMI { printf("\n\t### Γραμμή:%d Δήλωση\n", line); }
 
 type	: SINT 		{ $$ = strdup(yytext); }
 
@@ -63,39 +63,39 @@ assign	: aid ASSIGNOP tim SEMI
 		{
 			if (!strcmp($3, "SINT"))
 			{
-				printf("\n\t### Line:%d Value assignment\n", line);
+				printf("\n\t### Γραμμή:%d Ανάθεση τιμής\n", line);
 			}
 			else
 			{
-				printf("\n\t### Line:%d Variable assignment\n", line);
+				printf("\n\t### Γραμμή:%d Ανάθεση μεταβλητής\n", line);
 			}
 		}
 
 %%
 
 /* --------------------------------------------------------------------------------
-   Epiprosthetos kwdikas-xrhsth se glwssa C. Sto shmeio auto mporoun na prostethoun
-   synarthseis C pou tha symperilhfthoun ston kwdika tou syntaktikoy analyth */
+   Επιπρόσθετος κώδικας-χρήστη σε γλώσσα C. Στο σημείο αυτό μπορούν να προστεθούν
+   συναρτήσεις C που θα συμπεριληφθούν στον κώδικα του συντακτικού αναλυτή */
 
 
-/* H synarthsh yyerror xrhsimopoieitai gia thn anafora sfalmatwn. Sygkekrimena kaleitai
-   apo thn yyparse otan yparksei kapoio syntaktiko lathos. Sthn parakatw periptwsh h
-   synarthsh epi ths ousias den xrhsimopoieitai kai aplws epistrefei amesws. */
+/* Η συνάρτηση yyerror χρησιμοποιείται για την αναφορά σφαλμάτων. Συγκεκριμένα καλείται
+   από την yyparse όταν υπάρξει κάποιο συντακτικό λάθος. Στην παρακάτω περίπτωση η
+   συνάρτηση επί της ουσίας δεν χρησιμοποιείται και απλώς επιστρέφει αμέσως. */
 
 int yyerror(void)
 {}
 
 
-/* O deikths yyin einai autos pou "deixnei" sto arxeio eisodou. Ean den ginei xrhsh
-   tou yyin, tote h eisodos ginetai apokleistika apo to standard input (plhktrologio) */
+/* Ο δείκτης yyin είναι αυτός που "δείχνει" στο αρχείο εισόδου. Εάν δεν γίνει χρήση
+   του yyin, τότε η είσοδος γίνεται αποκλειστικά από το standard input (πληκτρολόγιο) */
 
 extern FILE *yyin;
 
 
-/* H synarthsh main pou apotelei kai to shmeio ekkinhshs tou programmatos.
-   Ginetai elegxos twn orismatwn ths grammhs entolwn kai klhsh ths yyparse
-   pou pragmatopoiei thn syntaktikh analysh. Sto telos ginetai elegxos gia
-   thn epityxh h mh ekbash ths analyshs. */
+/* Η συνάρτηση main που αποτελεί και το σημείο εκκίνησης του προγράμματος.
+   Γίνεται έλεγχος των ορισμάτων της γραμμής εντολών και κλήση της yyparse
+   που πραγματοποιεί τη συντακτική ανάλυση. Στο τέλος γίνεται έλεγχος για
+   την επιτυχή ή μη έκβαση της ανάλυσης. */
 
 int main(int argc,char **argv)
 {
@@ -108,9 +108,9 @@ int main(int argc,char **argv)
 	int parse = yyparse();
 
 	if (errflag==0 && parse==0)
-		printf("\nINPUT FILE: PARSING SUCCEEDED.\n", parse);
+		printf("\nΑΡΧΕΙΟ ΕΙΣΟΔΟΥ: Η ΑΝΑΛΥΣΗ ΕΠΙΤΥΧΘΗΚΕ.\n", parse);
 	else
-		printf("\nINPUT FILE: PARSING FAILED.\n", parse);
+		printf("\nΑΡΧΕΙΟ ΕΙΣΟΔΟΥ: Η ΑΝΑΛΥΣΗ ΑΠΕΤΥΧΕ.\n", parse);
 
 	return 0;
 }
