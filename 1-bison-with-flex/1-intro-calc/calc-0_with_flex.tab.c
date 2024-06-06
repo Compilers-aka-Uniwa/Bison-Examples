@@ -80,8 +80,9 @@ _______________________________________________________________*/
 extern int line;
 extern char * yytext;
 #define YYSTYPE int
+#define YYDEBUG 1
 
-#line 85 "calc-0_with_flex.tab.c"
+#line 86 "calc-0_with_flex.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -506,7 +507,7 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    41,    41,    42,    45,    46,    47
+       0,    42,    42,    43,    46,    47,    48
 };
 #endif
 
@@ -1063,31 +1064,31 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: program expr NEWLINE  */
-#line 41 "calc-0_with_flex.y"
+#line 42 "calc-0_with_flex.y"
                              { printf("%d\n", yyvsp[-1]); }
-#line 1069 "calc-0_with_flex.tab.c"
+#line 1070 "calc-0_with_flex.tab.c"
     break;
 
   case 4: /* expr: INTEGER  */
-#line 45 "calc-0_with_flex.y"
+#line 46 "calc-0_with_flex.y"
                          { yyval = atoi(yytext); }
-#line 1075 "calc-0_with_flex.tab.c"
+#line 1076 "calc-0_with_flex.tab.c"
     break;
 
   case 5: /* expr: expr expr '+'  */
-#line 46 "calc-0_with_flex.y"
+#line 47 "calc-0_with_flex.y"
                         { yyval = yyvsp[-2] + yyvsp[-1]; }
-#line 1081 "calc-0_with_flex.tab.c"
+#line 1082 "calc-0_with_flex.tab.c"
     break;
 
   case 6: /* expr: expr expr '*'  */
-#line 47 "calc-0_with_flex.y"
+#line 48 "calc-0_with_flex.y"
                         { yyval = yyvsp[-2] * yyvsp[-1]; }
-#line 1087 "calc-0_with_flex.tab.c"
+#line 1088 "calc-0_with_flex.tab.c"
     break;
 
 
-#line 1091 "calc-0_with_flex.tab.c"
+#line 1092 "calc-0_with_flex.tab.c"
 
       default: break;
     }
@@ -1280,7 +1281,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 50 "calc-0_with_flex.y"
+#line 51 "calc-0_with_flex.y"
 
 
 /* __________________________________________________
@@ -1292,6 +1293,7 @@ int main(int argc,char **argv)
 {
  int i;
 
+        yydebug = 1;
  int ret = yyparse();
 
  if (ret==0)

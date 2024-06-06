@@ -80,9 +80,10 @@ int line=1;
 int errflag=0;
 extern char *yytext;
 #define YYSTYPE char *
+#define YYDEBUG 1
 
 
-#line 86 "simple-parser.tab.c"
+#line 87 "simple-parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -511,8 +512,8 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    49,    49,    50,    51,    53,    55,    57,    59,    60,
-      62
+       0,    50,    50,    51,    52,    54,    56,    58,    60,    61,
+      63
 };
 #endif
 
@@ -1075,37 +1076,37 @@ yyreduce:
   switch (yyn)
     {
   case 5: /* decl: type aid SEMI  */
-#line 53 "simple-parser.y"
+#line 54 "simple-parser.y"
                         { printf("\n\t### Γραμμή:%d Δήλωση\n", line); }
-#line 1081 "simple-parser.tab.c"
+#line 1082 "simple-parser.tab.c"
     break;
 
   case 6: /* type: SINT  */
-#line 55 "simple-parser.y"
+#line 56 "simple-parser.y"
                         { yyval = strdup(yytext); }
-#line 1087 "simple-parser.tab.c"
+#line 1088 "simple-parser.tab.c"
     break;
 
   case 7: /* aid: IDENTIFIER  */
-#line 57 "simple-parser.y"
+#line 58 "simple-parser.y"
                         { yyval = strdup(yytext); }
-#line 1093 "simple-parser.tab.c"
+#line 1094 "simple-parser.tab.c"
     break;
 
   case 8: /* tim: INTCONST  */
-#line 59 "simple-parser.y"
+#line 60 "simple-parser.y"
                         { yyval = "SINT"; }
-#line 1099 "simple-parser.tab.c"
+#line 1100 "simple-parser.tab.c"
     break;
 
   case 9: /* tim: IDENTIFIER  */
-#line 60 "simple-parser.y"
+#line 61 "simple-parser.y"
                         { yyval = strdup(yytext); }
-#line 1105 "simple-parser.tab.c"
+#line 1106 "simple-parser.tab.c"
     break;
 
   case 10: /* assign: aid ASSIGNOP tim SEMI  */
-#line 63 "simple-parser.y"
+#line 64 "simple-parser.y"
                 {
 			if (!strcmp(yyvsp[-1], "SINT"))
 			{
@@ -1116,11 +1117,11 @@ yyreduce:
 				printf("\n\t### Γραμμή:%d Ανάθεση μεταβλητής\n", line);
 			}
 		}
-#line 1120 "simple-parser.tab.c"
+#line 1121 "simple-parser.tab.c"
     break;
 
 
-#line 1124 "simple-parser.tab.c"
+#line 1125 "simple-parser.tab.c"
 
       default: break;
     }
@@ -1313,7 +1314,8 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 74 "simple-parser.y"
+#line 75 "simple-parser.y"
+
 
 
 /* --------------------------------------------------------------------------------
@@ -1343,6 +1345,9 @@ extern FILE *yyin;
 int main(int argc,char **argv)
 {
 	int i;
+
+	yydebug = 0;
+	
 	if(argc == 2)
 		yyin=fopen(argv[1],"r");
 	else

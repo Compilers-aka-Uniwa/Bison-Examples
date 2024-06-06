@@ -17,6 +17,7 @@ _______________________________________________________________*/
 extern int line;
 extern char * yytext;
 #define YYSTYPE int
+#define YYDEBUG 1
 %}
 
 /* ____________________________________________ 

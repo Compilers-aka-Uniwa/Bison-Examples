@@ -1,5 +1,7 @@
-int a;
+int a; 
 int b;
 
 a = -30;
 b = a;
+
+

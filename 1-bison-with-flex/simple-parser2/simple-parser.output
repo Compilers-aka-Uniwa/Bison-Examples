@@ -1,0 +1,181 @@
+Grammar
+
+    0 $accept: program $end
+
+    1 program: program decl
+    2        | program assign
+    3        | ε
+
+    4 decl: type aid SEMI
+
+    5 type: SINT
+
+    6 aid: IDENTIFIER
+
+    7 tim: INTCONST
+    8    | IDENTIFIER
+
+    9 assign: aid ASSIGNOP tim SEMI
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    SINT (258) 5
+    SEMI (259) 4 9
+    ASSIGNOP (260) 9
+    IDENTIFIER (261) 6 8
+    INTCONST (262) 7
+
+
+Nonterminals, with rules where they appear
+
+    $accept (8)
+        on left: 0
+    program (9)
+        on left: 1 2 3
+        on right: 0 1 2
+    decl (10)
+        on left: 4
+        on right: 1
+    type (11)
+        on left: 5
+        on right: 4
+    aid (12)
+        on left: 6
+        on right: 4 9
+    tim (13)
+        on left: 7 8
+        on right: 9
+    assign (14)
+        on left: 9
+        on right: 2
+
+
+State 0
+
+    0 $accept: • program $end
+
+    $default  reduce using rule 3 (program)
+
+    program  go to state 1
+
+
+State 1
+
+    0 $accept: program • $end
+    1 program: program • decl
+    2        | program • assign
+
+    $end        shift, and go to state 2
+    SINT        shift, and go to state 3
+    IDENTIFIER  shift, and go to state 4
+
+    decl    go to state 5
+    type    go to state 6
+    aid     go to state 7
+    assign  go to state 8
+
+
+State 2
+
+    0 $accept: program $end •
+
+    $default  accept
+
+
+State 3
+
+    5 type: SINT •
+
+    $default  reduce using rule 5 (type)
+
+
+State 4
+
+    6 aid: IDENTIFIER •
+
+    $default  reduce using rule 6 (aid)
+
+
+State 5
+
+    1 program: program decl •
+
+    $default  reduce using rule 1 (program)
+
+
+State 6
+
+    4 decl: type • aid SEMI
+
+    IDENTIFIER  shift, and go to state 4
+
+    aid  go to state 9
+
+
+State 7
+
+    9 assign: aid • ASSIGNOP tim SEMI
+
+    ASSIGNOP  shift, and go to state 10
+
+
+State 8
+
+    2 program: program assign •
+
+    $default  reduce using rule 2 (program)
+
+
+State 9
+
+    4 decl: type aid • SEMI
+
+    SEMI  shift, and go to state 11
+
+
+State 10
+
+    9 assign: aid ASSIGNOP • tim SEMI
+
+    IDENTIFIER  shift, and go to state 12
+    INTCONST    shift, and go to state 13
+
+    tim  go to state 14
+
+
+State 11
+
+    4 decl: type aid SEMI •
+
+    $default  reduce using rule 4 (decl)
+
+
+State 12
+
+    8 tim: IDENTIFIER •
+
+    $default  reduce using rule 8 (tim)
+
+
+State 13
+
+    7 tim: INTCONST •
+
+    $default  reduce using rule 7 (tim)
+
+
+State 14
+
+    9 assign: aid ASSIGNOP tim • SEMI
+
+    SEMI  shift, and go to state 15
+
+
+State 15
+
+    9 assign: aid ASSIGNOP tim SEMI •
+
+    $default  reduce using rule 9 (assign)

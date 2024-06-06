@@ -26,6 +26,7 @@ int line=1;
 int errflag=0;
 extern char *yytext;
 #define YYSTYPE char *
+#define YYDEBUG 1
 
 %}
 
@@ -73,6 +74,7 @@ assign	: aid ASSIGNOP tim SEMI
 
 %%
 
+
 /* --------------------------------------------------------------------------------
    Επιπρόσθετος κώδικας-χρήστη σε γλώσσα C. Στο σημείο αυτό μπορούν να προστεθούν
    συναρτήσεις C που θα συμπεριληφθούν στον κώδικα του συντακτικού αναλυτή */
@@ -100,6 +102,9 @@ extern FILE *yyin;
 int main(int argc,char **argv)
 {
 	int i;
+
+	yydebug = 0;
+	
 	if(argc == 2)
 		yyin=fopen(argv[1],"r");
 	else

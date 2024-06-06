@@ -1,5 +1,5 @@
 all:
-	bison -d simple-parser.y
+	bison -d simple-parser.y --verbose
 	flex simple-parser.l
 	gcc simple-parser.tab.c lex.yy.c -o simple-parser
 	./simple-parser input-success.txt
